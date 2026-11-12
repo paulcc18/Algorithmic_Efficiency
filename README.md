@@ -1,67 +1,67 @@
-# Duplicate Methods: comparación experimental de algoritmos
+# Duplicate Methods: experimental comparison of algorithms
 
-Trabajo de **Algoritmos · Semana 2** ("Reto de clase: tabla experimental").
+**Algorithms · Week 2** project ("Class challenge: experimental table").
 
-Se comparan dos algoritmos que trabajan sobre un arreglo de enteros para encontrar información sobre valores repetidos. Se mide cuántas **operaciones** realiza cada uno y cuánto **tiempo** tarda.
+This project compares two algorithms that work on an integer array to find information about repeated values. For each one, it measures how many **operations** it performs and how much **time** it takes.
 
-## Algoritmos
+## Algorithms
 
-| Algoritmo | Idea | Resultado | Complejidad |
+| Algorithm | Idea | Result | Complexity |
 |---|---|---|---|
-| **A** | Ordena una copia del arreglo (burbuja, ascendente o descendente) y compara cada elemento con su vecino anterior. | Cantidad de posiciones repetidas | O(n²) |
-| **B** | Cuenta las apariciones de cada valor en un arreglo de frecuencias y busca la mayor. | La **moda** (valor que más se repite) y cuántas veces aparece | O(n) |
+| **A** | Sorts a copy of the array (bubble sort, ascending or descending) and compares each element with its previous neighbor. | Number of repeated positions | O(n²) |
+| **B** | Counts how many times each value appears in a frequency array and looks for the highest count. | The **mode** (most frequent value) and how many times it appears | O(n) |
 
-El código usa solo arreglos y ciclos, sin `HashMap`, `Arrays.sort` ni otras funciones que automaticen el trabajo.
+The code uses only arrays and loops, with no `HashMap`, `Arrays.sort`, or other built-in helpers that automate the work.
 
-## Archivos
+## Files
 
-- `duplicateMethods.java`: programa que ejecuta ambos algoritmos y muestra la tabla.
-- `Comparacion_algoritmos.xlsx`: tabla en Excel con la comparación (hoja "Comparación") y el formato de la slide (hoja "Tabla experimental").
+- `duplicateMethods.java`: program that runs both algorithms and prints the table.
+- `Comparacion_algoritmos.xlsx`: Excel table with the comparison ("Comparación" sheet) and the format from the class slide ("Tabla experimental" sheet).
 
-## Cómo ejecutarlo
+## How to run
 
-Requiere tener instalado el JDK.
+Requires the JDK to be installed.
 
 ```bash
 javac duplicateMethods.java
 java duplicateMethods
 ```
 
-Para probar el orden descendente, cambia `boolean upward = true;` a `false`.
+To test descending order, change `boolean upward = true;` to `false`.
 
-## Metodología
+## Methodology
 
-- **Tamaños de prueba:** n = 100 y n = 1.000.
-- **Datos:** arreglo de enteros aleatorios entre 0 y n-1, generado con `new Random(42)`. La semilla fija permite repetir el experimento con los mismos datos.
-- **Repeticiones:** cada medición se repite **3 veces** y se reporta el **promedio**, como pide la condición del reto.
-- **Tiempo:** medido con `System.nanoTime()` y expresado en milisegundos.
-- **Operaciones contadas:**
-  - **A:** comparaciones del ordenamiento burbuja + comparaciones con el vecino.
-  - **B:** un conteo por cada elemento + comparaciones al buscar la frecuencia máxima.
+- **Test sizes:** n = 100 and n = 1,000.
+- **Data:** array of random integers between 0 and n-1, generated with `new Random(42)`. The fixed seed makes the experiment repeatable with the same data.
+- **Repetitions:** each measurement is repeated **3 times** and the **average** is reported, as required by the challenge.
+- **Time:** measured with `System.nanoTime()` and expressed in milliseconds.
+- **Operations counted:**
+  - **A:** bubble sort comparisons + neighbor comparisons.
+  - **B:** one count per element + comparisons while searching for the maximum frequency.
 
-## Resultados
+## Results
 
-| Algoritmo | n | operaciones | tiempo (ms) |
+| Algorithm | n | operations | time (ms) |
 |---|---|---|---|
-| A | 100 | 5.049 | 0,209 |
-| A | 1.000 | 500.499 | 5,360 |
-| B | 100 | 199 | 0,003 |
-| B | 1.000 | 1.999 | 0,008 |
+| A | 100 | 5,049 | 0.209 |
+| A | 1,000 | 500,499 | 5.360 |
+| B | 100 | 199 | 0.003 |
+| B | 1,000 | 1,999 | 0.008 |
 
-Salida adicional del programa con la semilla 42:
+Additional program output with seed 42:
 
-- n = 100: A encuentra 37 posiciones repetidas; B indica que la moda es 93 (aparece 5 veces).
-- n = 1.000: A encuentra 378 posiciones repetidas; B indica que la moda es 391 (aparece 5 veces).
+- n = 100: A finds 37 repeated positions; B reports that the mode is 93 (appears 5 times).
+- n = 1,000: A finds 378 repeated positions; B reports that the mode is 391 (appears 5 times).
 
-> Las operaciones son siempre las mismas, pero los **tiempos varían** entre ejecuciones y equipos. Los valores de la tabla provienen de una ejecución de ejemplo.
+> The number of operations is always the same, but **times vary** between runs and machines. The values in the table come from a sample run.
 
-## Conclusión
+## Conclusion
 
-El algoritmo B es mucho más eficiente que el A. Al pasar de n = 100 a n = 1.000, las operaciones de A se multiplican por unas 99 veces (comportamiento O(n²)), mientras que las de B se multiplican por unas 10 (comportamiento O(n)). Con n = 1.000, A realiza unas 250 veces más operaciones que B y resulta más de 600 veces más lento en tiempo.
+Algorithm B is much more efficient than Algorithm A. When going from n = 100 to n = 1,000, the operations of A grow by about 99 times (O(n²) behavior), while those of B grow by about 10 times (O(n) behavior). With n = 1,000, A performs about 250 times more operations than B and is more than 600 times slower in execution time.
 
-El costo de B es que es menos general: su arreglo de frecuencias solo funciona si los valores están entre 0 y n-1, y no deja el arreglo ordenado. Por eso, si solo se necesita saber qué valor se repite más, B es la mejor opción. Si se necesita además el arreglo ordenado, A sigue siendo útil, preferiblemente con un algoritmo de ordenamiento más eficiente que la burbuja.
+The trade-off is that B is less general: its frequency array only works if the values are between 0 and n-1, and it does not leave the array sorted. So if you only need to know which value appears most often, B is the better choice. If you also need the sorted array, A is still useful, preferably with a sorting algorithm more efficient than bubble sort.
 
-## Limitaciones
+## Limitations
 
-- Con ordenamiento burbuja, tamaños como n = 1.000.000 tardarían demasiado, por eso solo se probó con 100 y 1.000.
-- Con tamaños pequeños, el tiempo se mide en microsegundos y se ve afectado por el calentamiento de la JVM y el sistema operativo.
+- With bubble sort, sizes such as n = 1,000,000 would take too long, so only 100 and 1,000 were tested.
+- With small sizes, time is measured in microseconds and is affected by JVM warm-up and the operating system.
