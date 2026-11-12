@@ -2,6 +2,10 @@
 
 **Algorithms · Week 2** project ("Class challenge: experimental table").
 
+## Team members
+
+- Gabriela Chuquimarca y Paul Cumbal
+
 This project compares two algorithms that work on an integer array to find information about repeated values. For each one, it measures how many **operations** it performs and how much **time** it takes.
 
 ## Algorithms
